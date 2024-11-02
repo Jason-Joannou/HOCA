@@ -1,18 +1,66 @@
-import Image from 'next/image'
+"use client";
+
+import { Button } from "./components/ui/Button";
+import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function Home() {
   return (
-    <div className="flex items-center justify-center h-5/6 relative">
-      <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <h1 className="font-bold text-[250px] text-white ml-[30px]" style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>HOCA</h1>
-      </div>
-      <div className="absolute left-[650px] mb-10">
-        <p className="text-[40px] text-white">Hellenic Outreach and Community Association</p>
-      </div>
-      <div className="absolute top-[400px] left-[810px] flex space-x-10">
-        <button className="text-[24px] text-white rounded-full bg-gradient-to-t from-[#00b1a3] to-[#42cdc2] px-8 py-3 shadow-lg hover:from-red-500 hover:to-red-700 transition ease-in-out duration-300">About</button>
-        <button className="text-[24px] text-white rounded-full bg-gradient-to-t from-[#00b1a3] to-[#42cdc2] px-8 py-3 shadow-lg hover:from-red-500 hover:to-red-700 transition ease-in-out duration-300">Sign Up!</button>
+    <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
+      {/* Background animation */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50"
+        animate={{
+          background: [
+            "linear-gradient(to bottom right, #E6F3FF, #E6FCFF, #E6FFFB)",
+            "linear-gradient(to bottom right, #E6FCFF, #E6FFFB, #E6F3FF)",
+            "linear-gradient(to bottom right, #E6FFFB, #E6F3FF, #E6FCFF)",
+          ],
+        }}
+        transition={{ duration: 10, repeat: Infinity, repeatType: "reverse" }}
+      />
+
+      <div className="text-center z-10">
+        <h1 className="text-8xl font-black mb-4 text-blue-600 flex justify-center">
+          {"HOCA".split("").map((letter, index) => (
+            <motion.span
+              key={index}
+              initial={{ y: 0 }}
+              animate={{ y: [0, -20, 0] }}
+              transition={{
+                duration: 2,
+                ease: "easeInOut",
+                repeat: Infinity,
+                repeatType: "reverse",
+                delay: index * 0.1,
+              }}
+              className="inline-block"
+            >
+              {letter}
+            </motion.span>
+          ))}
+        </h1>
+
+        {/* Motto with appearance animation */}
+        <motion.p
+          className="text-2xl mb-8 text-teal-700"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 1 }}
+        >
+          Hellenic Heritage, Modern Horizons
+        </motion.p>
+
+        {/* Button with hover effect */}
+        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+          <Button
+            className="bg-blue-600 hover:bg-blue-700 text-white text-lg px-8 py-3 rounded-full transition-colors duration-300"
+            asChild
+          >
+            <Link href="/about">Learn More</Link>
+          </Button>
+        </motion.div>
       </div>
     </div>
-  )
+  );
 }
