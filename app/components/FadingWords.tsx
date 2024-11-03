@@ -21,8 +21,10 @@ const FadingWord: React.FC<{ word: (typeof words)[0]; index: number }> = ({
   const [position, setPosition] = useState({ top: 0, left: 0 });
 
   useEffect(() => {
+    let isMounted = true; // track whether component is mounted
+
     const animate = async () => {
-      while (true) {
+      while (isMounted) {
         setPosition({
           top: Math.random() * 80 + 10, // 10% to 90%
           left: Math.random() * 80 + 10, // 10% to 90%
@@ -31,7 +33,13 @@ const FadingWord: React.FC<{ word: (typeof words)[0]; index: number }> = ({
         await new Promise((resolve) => setTimeout(resolve, 2000)); // Wait before next cycle
       }
     };
+
     animate();
+
+    // Cleanup function to stop the animation when component unmounts
+    return () => {
+      isMounted = false;
+    };
   }, [controls]);
 
   return (
