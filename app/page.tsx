@@ -3,6 +3,7 @@
 import { Button } from "./components/ui/Button";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { FadingWords } from "./components/FadingWords";
 
 export default function Home() {
   return (
@@ -19,6 +20,8 @@ export default function Home() {
         }}
         transition={{ duration: 10, repeat: Infinity, repeatType: "reverse" }}
       />
+
+      <FadingWords />
 
       <div className="text-center z-10">
         <h1 className="text-8xl font-black mb-4 text-blue-600 flex justify-center">
