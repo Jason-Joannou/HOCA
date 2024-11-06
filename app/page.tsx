@@ -1,24 +1,56 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Playfair_Display } from "next/font/google";
+import { Oswald } from "next/font/google";
 import { FadingWords } from "./components/FadingWords";
 import { useRouter } from "next/navigation";
 
-const playfair = Playfair_Display({ subsets: ["latin"] });
+const oswald = Oswald({ subsets: ["cyrillic"] });
+
+const WavyCircle = () => (
+  <svg
+    className="fixed inset-0 w-full h-full z-50"
+    viewBox="0 0 100 100"
+    preserveAspectRatio="none"
+  >
+    <motion.path
+      d="M50,50
+         C60,50 70,45 80,50
+         C90,55 100,60 100,70
+         C100,80 90,90 80,95
+         C70,100 60,100 50,100
+         C40,100 30,100 20,95
+         C10,90 0,80 0,70
+         C0,60 10,55 20,50
+         C30,45 40,50 50,50 Z"
+      fill="#1e88e5"
+      initial={{ scale: 0, translateX: "50%", translateY: "50%" }}
+      animate={{ scale: 20, translateX: "0%", translateY: "0%" }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1.2, ease: "easeInOut" }}
+    />
+  </svg>
+);
 
 export default function Home() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const router = useRouter();
 
+  useEffect(() => {
+    if (isTransitioning) {
+      document.body.style.backgroundColor = "#1e88e5";
+    } else {
+      document.body.style.backgroundColor = "";
+    }
+  }, [isTransitioning]);
+
   const handleLearnMore = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     setIsTransitioning(true);
-    // Navigate after animation completes
     setTimeout(() => {
       router.push("/about");
-    }, 1000);
+    }, 1200);
   };
 
   return (
@@ -35,11 +67,9 @@ export default function Home() {
         transition={{ duration: 10, repeat: Infinity, repeatType: "reverse" }}
       />
 
-      <FadingWords />
-
       <div className="text-center z-10">
         <h1
-          className={`${playfair.className} text-8xl font-black mb-4 text-blue-600 flex justify-center`}
+          className={`${oswald.className} text-8xl font-black mb-4 text-blue-600 flex justify-center`}
         >
           {"HOCA".split("").map((letter, index) => (
             <motion.span
@@ -80,17 +110,7 @@ export default function Home() {
         </motion.div>
       </div>
 
-      <AnimatePresence>
-        {isTransitioning && (
-          <motion.div
-            className="fixed inset-0 bg-blue-600 z-50"
-            initial={{ scale: 0, borderRadius: "100%" }}
-            animate={{ scale: 10, borderRadius: "0%" }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
-          />
-        )}
-      </AnimatePresence>
+      <AnimatePresence>{isTransitioning && <WavyCircle />}</AnimatePresence>
     </div>
   );
 }
