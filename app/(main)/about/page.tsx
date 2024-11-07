@@ -2,10 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Playfair_Display } from "next/font/google";
+import { Oswald } from "next/font/google";
 import Image from "next/image";
 
-const playfair = Playfair_Display({ subsets: ["latin"] });
+const playfair = Oswald({ subsets: ["cyrillic"] });
 
 const greekValues = [
   {
@@ -91,7 +91,7 @@ export default function About() {
           About HOCA
         </h1>
 
-        <section className="mb-16">
+        <section className={`${playfair.className} mb-16`}>
           <p className="text-lg mb-6 leading-relaxed">
             In the vibrant heart of Cape Town, where diverse cultures
             intertwine, the Hellenic Organization for Contemporary Advancement
@@ -112,7 +112,7 @@ export default function About() {
           </p>
         </section>
 
-        <section className="mb-16">
+        <section className={`${playfair.className} mb-16`}>
           <h2
             className={`${playfair.className} text-3xl font-bold mb-6 text-blue-600`}
           >
@@ -137,7 +137,7 @@ export default function About() {
           </p>
         </section>
 
-        <section className="mb-16">
+        <section className={`${playfair.className} mb-16`}>
           <h2
             className={`${playfair.className} text-3xl font-bold mb-6 text-blue-600`}
           >
@@ -180,7 +180,7 @@ export default function About() {
           </div>
         </section>
 
-        <section>
+        <section className={`${playfair.className} mb-16`}>
           <h2
             className={`${playfair.className} text-3xl font-bold mb-6 text-blue-600`}
           >
