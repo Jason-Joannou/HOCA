@@ -29,6 +29,7 @@
     "typescript": "5.4.5"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "prisma": "^5.22.0"
   }
 }
